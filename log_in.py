@@ -36,7 +36,6 @@ def test_example(driver):
     find_by_name(driver, "city", "New York")
     Select(driver.find_element_by_css_selector("select.select2-hidden-accessible")).select_by_visible_text(
         "United States")
-    # find_by_name(driver, 'email', "nas@mail.ru")
     email()
     name_ = email()
     find_by_name(driver, 'email', name_)
