@@ -32,9 +32,9 @@ def test_example(driver):
         item[i].click()
         time.sleep(2)
         zones_ = driver.find_elements_by_xpath("//*[@id='table-zones']//tr/td[3]/select")
+        s = []
         for j in range(0, len(zones_)-1):
-            s = []
-            a = zones_[j].get_attribute("value")
+            a = zones_[j].get_attribute("textContent")
             s.append(a)
         new_s = sorted(s)
         if new_s == s:

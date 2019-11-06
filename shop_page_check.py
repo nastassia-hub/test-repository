@@ -18,12 +18,33 @@ def com_values(val, val_):
         print("Error in name/price")
 
 
-def com_colors(val2, val3):
-    color_hex = Color.from_string(val2).hex
-    if color_hex == val3:
-        return True
-    else:
-        print("Error in colors")
+def com_colors(val2):
+    col = val2
+    for i in range(len(col)):
+        a = col[5]
+        b = col[6]
+        c = col[7]
+        d = col[10]
+        e = col[11]
+        f = col[12]
+        j = col[15]
+        k = col[16]
+        l = col[17]
+        if a == d ==j and b == e == k and c == f == l:
+            return True
+        else:
+            print("Error in colors")
+
+
+def com_colors_(val3):
+    col_ = val3
+    for i in range(len(col_)):
+        m = col_[10]
+        n = col_[13]
+        if m == "0" and n == "0":
+            return True
+        else:
+            print("Error in colors__")
 
 
 def com_weights(val4):
@@ -63,13 +84,13 @@ def test_example(driver):
     name = duck.get_attribute("title")
     reg_price = driver.find_element_by_xpath("//*[@id='box-campaigns']//a/div[4]/s")
     reg_color = reg_price.value_of_css_property("color")
-    com_colors(reg_color, "#777777")
+    com_colors(reg_color)
     reg_size = reg_price.size
     reg_decor = reg_price.value_of_css_property("text-decoration-line")
     com_text_decoration(reg_decor)
     com_price = driver.find_element_by_xpath("//*[@id='box-campaigns']//a/div[4]/strong")
     com_color = com_price.value_of_css_property("color")
-    com_colors(com_color, "#cc0000")
+    com_colors_(com_color)
     weight = com_price.value_of_css_property("font-weight")
     com_weights(weight)
     com_size = com_price.size
@@ -86,13 +107,13 @@ def test_example(driver):
     name_ = title.get_attribute("textContent")
     reg_pr = driver.find_element_by_css_selector("s.regular-price")
     reg_color_ = reg_pr.value_of_css_property("color")
-    com_colors(reg_color_, "#666666")
+    com_colors(reg_color_)
     reg_decor_ = reg_pr.value_of_css_property("text-decoration-line")
     com_text_decoration(reg_decor_)
     reg_size_ = reg_pr.size
     com_pr = driver.find_element_by_css_selector("strong.campaign-price")
     com_color_ = com_pr.value_of_css_property("color")
-    com_colors(com_color_, "#cc0000")
+    com_colors_(com_color_)
     weight_ = com_pr.value_of_css_property("font-weight")
     com_weights(weight_)
     com_size_ = com_pr.size
