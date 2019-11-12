@@ -10,7 +10,7 @@ from selenium.webdriver.support.ui import Select
 
 @pytest.fixture
 def driver(request):
-    wd = webdriver.Chrome()
+    wd = webdriver.Firefox()
     request.addfinalizer(wd.quit)
     return wd
 
@@ -56,18 +56,12 @@ def test_example(driver):
 
     # go to checkout
     driver.find_element_by_xpath("//*[@id='cart']/a[3]").click()
+    table = driver.find_element_by_css_selector("div#box-checkout-summary.box")
+    driver.find_element_by_xpath("//*[@name='cart_form']//div//p[4]").click()
     wait = WebDriverWait(driver, 5)
-    remove = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@class='item']//div/p[4]/button")))
-    remove.click()
+    wait.until(EC.staleness_of(table))
+    driver.find_element_by_css_selector("[name=remove_cart_item]").click()
     wait = WebDriverWait(driver, 5)
-    wait.until(EC.invisibility_of_element_located((By.XPATH, "//*[@id='order_confirmation-wrapper']//tr[4]")))
-    wait.until(EC.visibility_of_element_located((By.XPATH, "//*[@id='order_confirmation-wrapper']//tr[4]")))
-    remove = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@class='item']//div/p[4]/button")))
-    remove.click()
-    # wait = WebDriverWait(driver, 5)
-    # wait.until(EC.text_to_be_present_in_element((By.XPATH, "//*[@id='order_confirmation-wrapper']//tr[3]"), "&nbsp"))
-    # remove = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@class='item']//div/p[4]/button")))
-    # remove.click()
-    # wait = WebDriverWait(driver, 5)
-    # wait.until(EC.text_to_be_present_in_element((By.XPATH, "//*[@id='order_confirmation-wrapper']//tr[2]"), "&nbsp"))
-    # time.sleep(5)
+    wait.until(EC.staleness_of(table))
+    driver.find_element_by_css_selector("[name=remove_cart_item]").click()
+    time.sleep(5)
