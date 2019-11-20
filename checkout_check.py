@@ -1,6 +1,5 @@
 import pytest
 from selenium import webdriver
-import time
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -37,6 +36,12 @@ def add_duck(driver):
         add.click()
 
 
+def delete_element(driver, table):
+    driver.find_element_by_name("remove_cart_item").click()
+    wait = WebDriverWait(driver, 5)
+    wait.until(EC.staleness_of(table))
+
+
 def test_example(driver):
     driver.get("http://litecart.stqa.ru/ru/")
     driver.maximize_window()
@@ -57,11 +62,6 @@ def test_example(driver):
     # go to checkout
     driver.find_element_by_xpath("//*[@id='cart']/a[3]").click()
     table = driver.find_element_by_css_selector("div#box-checkout-summary.box")
-    driver.find_element_by_xpath("//*[@name='cart_form']//div//p[4]").click()
-    wait = WebDriverWait(driver, 5)
-    wait.until(EC.staleness_of(table))
-    driver.find_element_by_css_selector("[name=remove_cart_item]").click()
-    wait = WebDriverWait(driver, 5)
-    wait.until(EC.staleness_of(table))
-    driver.find_element_by_css_selector("[name=remove_cart_item]").click()
-    time.sleep(5)
+    delete_element(driver, table)
+    delete_element(driver, table)
+    delete_element(driver, table)

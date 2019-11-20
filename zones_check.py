@@ -27,15 +27,17 @@ def test_example(driver):
     zones.click()
     time.sleep(3)
     item = driver.find_elements_by_xpath("//*[@class='row']//td[3]/a")
-    print(len(item))
     for i in range(0, len(item)):
         item[i].click()
         time.sleep(2)
         zones_ = driver.find_elements_by_xpath("//*[@id='table-zones']//tr/td[3]/select")
         s = []
-        for j in range(0, len(zones_)-1):
-            a = zones_[j].get_attribute("textContent")
-            s.append(a)
+        for zone in zones_:
+            zone.is_selected()
+            if True:
+                a = zone.get_attribute("textContent")
+                s.append(a)
+        print(s)
         new_s = sorted(s)
         if new_s == s:
             print("Countries are in alphabet order")
