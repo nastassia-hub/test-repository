@@ -32,7 +32,7 @@ def test_example(driver):
         time.sleep(2)
         zones_ = driver.find_elements_by_css_selector("select[name*=zone_code]>option[selected]")
         s = []
-        for j in range(0, len(zones_) - 1):
+        for j in range(0, len(zones_)):
             a = zones_[j].get_attribute("textContent")
             print(a)
             s.append(a)
